@@ -1,0 +1,18 @@
+{
+  "name": "realworld-nuxtjs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitee.com:well1122/realworld-nuxtjs.git",
+  "author": "lihuabing <2946632291@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "dependencies": {
+    "nuxt": "^2.15.8"
+  },
+  "devDependencies": {
+    "less": "^4.1.3",
+    "less-loader": "5.0.0"
+  }
+}
