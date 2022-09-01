@@ -1,6 +1,10 @@
 export default {
   data() {
-    return {}
+    return {
+      email: '',
+      password: '',
+      errors: {},
+    }
   },
   asyncData() {},
   methods: {},

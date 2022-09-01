@@ -8,19 +8,32 @@
             <nuxt-link to="/register">Need an account?</nuxt-link>
           </p>
 
-          <form>
+          <ul class="error-messages">
+            <template v-for="(messages, field) in errors">
+              <li v-for="msg in messages" :key="field + msg">
+                {{ field }} {{ msg }}
+              </li>
+            </template>
+          </ul>
+
+          <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
+                v-model="email"
                 class="form-control form-control-lg"
-                type="text"
+                type="email"
                 placeholder="Email"
+                required
               />
             </fieldset>
             <fieldset class="form-group">
               <input
+                v-model="password"
                 class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
+                required
+                minlength="8"
               />
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right">
@@ -35,9 +48,31 @@
 
 <script>
 import authMixin from '@/assets/js/auth-mixin'
+import pick from 'lodash.pick'
+import { login } from '@/api/user'
+const Cookies = process.client ? require('js-cookie') : undefined
 
 export default {
   nmae: 'LoginPage',
   mixins: [authMixin],
+  methods: {
+    onSubmit() {
+      login({ user: pick(this, ['email', 'password']) })
+        .then((res) => {
+          this.errors = {}
+          console.log('login:', res)
+          // TODO 保存用户的登录状态
+          this.$store.commit('setUser', res.user)
+          // 为防止刷新页面数据丢失，把数据持久化
+          // 提交表单一定是在客户端做的，所以 Cookie 一定有值
+          Cookies.set('user', JSON.stringify(res.user))
+          this.$router.push('/')
+        })
+        .catch((err) => {
+          this.errors = err.errors
+          console.error('login err:', err)
+        })
+    },
+  },
 }
 </script>

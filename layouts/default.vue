@@ -56,8 +56,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  asyncData() {},
+}
 </script>
 
-<style>
-</style>
+<style></style>
