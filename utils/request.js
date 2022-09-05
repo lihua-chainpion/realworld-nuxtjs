@@ -3,12 +3,16 @@ import axios from 'axios'
 const request = axios.create({
   baseURL: 'https://api.realworld.io',
   timeout: 10000,
+  headers: { Token: '' },
 })
 
 // Add a request interceptor
 request.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    config.headers = Object.assign({}, config.headers, {
+      Authorization: `Token `,
+    })
     return config
   },
   function (error) {

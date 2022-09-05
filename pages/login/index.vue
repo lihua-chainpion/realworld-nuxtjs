@@ -60,8 +60,7 @@ export default {
       login({ user: pick(this, ['email', 'password']) })
         .then((res) => {
           this.errors = {}
-          console.log('login:', res)
-          // TODO 保存用户的登录状态
+          // 保存用户的登录状态
           this.$store.commit('setUser', res.user)
           // 为防止刷新页面数据丢失，把数据持久化
           // 提交表单一定是在客户端做的，所以 Cookie 一定有值

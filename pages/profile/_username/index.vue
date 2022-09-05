@@ -97,6 +97,7 @@
 <script>
 export default {
   name: 'ProfilePage',
+  middleware: 'authenticated',
   asyncData({ params }) {
     return { username: params.username }
   },

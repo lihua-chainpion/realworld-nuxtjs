@@ -9,26 +9,26 @@
             <!-- Add "active" class when you're on that page" -->
             <nuxt-link class="nav-link" to="/" exact>Home</nuxt-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLogin">
             <nuxt-link class="nav-link" to="/editor">
               <i class="ion-compose"></i>&nbsp;New Article
             </nuxt-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLogin">
             <nuxt-link class="nav-link" to="/settings">
               <i class="ion-gear-a"></i>&nbsp;Settings
             </nuxt-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!isLogin">
             <nuxt-link class="nav-link" to="/login">Sign in</nuxt-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!isLogin">
             <nuxt-link class="nav-link" to="/register">Sign up</nuxt-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLogin">
             <nuxt-link class="nav-link" to="/profile/123">
-              <img class="user-pic" />
-              Hub Lee
+              <img class="user-pic" :src="$store.state.user.image" />
+              {{ $store.state.user.username }}
             </nuxt-link>
           </li>
         </ul>
@@ -58,6 +58,11 @@
 <script>
 export default {
   asyncData() {},
+  computed: {
+    isLogin() {
+      return this.$store.state.user !== null
+    },
+  },
 }
 </script>
 

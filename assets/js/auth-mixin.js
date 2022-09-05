@@ -1,4 +1,5 @@
 export default {
+  middleware: 'notAuthenticated',
   data() {
     return {
       email: '',
