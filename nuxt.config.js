@@ -3,4 +3,5 @@ export default {
     linkActiveClass: 'active',
     extendRoutes(routes, resolve) {},
   },
+  plugins: ['~/plugins/request.js'],
 }

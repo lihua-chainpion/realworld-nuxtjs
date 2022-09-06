@@ -74,7 +74,7 @@ export default {
         .then((res) => {
           this.errors = {}
           console.log('register:', res)
-          // TODO 保存用户的登录状态
+          // 保存用户的登录状态
           this.$router.push('/')
         })
         .catch((err) => {
