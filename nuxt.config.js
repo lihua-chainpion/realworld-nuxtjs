@@ -3,10 +3,11 @@ export default {
     linkActiveClass: 'active',
     extendRoutes(routes, resolve) {},
   },
-  plugins: ['~/plugins/request.js', '~/plugins/dayjs.js'],
+  modules: ['@nuxtjs/axios'],
+  plugins: ['~/plugins/axios.js', '~/plugins/dayjs.js'],
   components: true,
   head: {
-    titleTemplate: '%s - RealWorld',
+    title: 'RealWorld',
     link: [
       {
         rel: 'stylesheet',
@@ -20,5 +21,9 @@ export default {
       },
       { rel: 'stylesheet', href: '/main.css' },
     ],
+  },
+  server: {
+    host: '0.0.0.0', // default: localhost,
+    port: 3000, // default: 3000
   },
 }

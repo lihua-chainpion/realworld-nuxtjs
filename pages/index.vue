@@ -136,18 +136,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   getArticles,
   getFeedArticles,
-  addFavorite,
   deleteFavorite,
+  addFavorite,
 } from '@/api/article'
 import { getTags } from '@/api/tag'
-import { mapState } from 'vuex'
 
 export default {
   name: 'HomePage',
-  async asyncData({ query, store }) {
+  async asyncData({ $request, query, store }) {
     const page = parseInt(query.page || 1)
     const limit = 20
     const { tag, tab } = query
@@ -156,17 +156,23 @@ export default {
     let articleData = { articles: [], articlesCount: 0 }
     let tagData = { tags: [] }
     try {
-      ;[articleData, tagData] = await Promise.all([
-        loadArticles({
+      const [_articleData, _tagData] = await Promise.all([
+        loadArticles($request, {
           tag,
           limit,
           offset: (page - 1) * limit,
         }),
-        getTags(),
+        getTags($request),
       ])
-      articleData.articles.forEach(
-        (article) => (article.favoriteDisabled = false)
-      )
+      if (_articleData) {
+        _articleData.articles.forEach(
+          (article) => (article.favoriteDisabled = false)
+        )
+        articleData = _articleData
+      }
+      if (_tagData) {
+        tagData = _tagData
+      }
     } catch (err) {
       console.error('get articles err:', err)
     } finally {
@@ -194,12 +200,12 @@ export default {
         article.favoriteDisabled = true
         if (article.favorited) {
           // 取消点赞
-          await deleteFavorite(article.slug)
+          await deleteFavorite(this.$request, article.slug)
           article.favorited = false
           article.favoritesCount--
         } else {
           // 添加点赞
-          await addFavorite(article.slug)
+          await addFavorite(this.$request, article.slug)
           article.favorited = true
           article.favoritesCount++
         }

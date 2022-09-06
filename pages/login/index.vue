@@ -49,15 +49,15 @@
 <script>
 import authMixin from '@/assets/js/auth-mixin'
 import pick from 'lodash.pick'
-import { login } from '@/api/user'
 const Cookies = process.client ? require('js-cookie') : undefined
+import { login } from '@/api/user'
 
 export default {
   nmae: 'LoginPage',
   mixins: [authMixin],
   methods: {
     onSubmit() {
-      login({ user: pick(this, ['email', 'password']) })
+      login(this.$request, { user: pick(this, ['email', 'password']) })
         .then((res) => {
           this.errors = {}
           // 保存用户的登录状态

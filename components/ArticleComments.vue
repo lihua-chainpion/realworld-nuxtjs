@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     getComments() {
-      getComments(this.article.slug)
+      getComments(this.$request, this.article.slug)
         .then((res) => {
           this.comments = res.comments || []
         })

@@ -70,10 +70,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      register({ user: pick(this, ['username', 'email', 'password']) })
-        .then((res) => {
+      register(this.$request, {
+        user: pick(this, ['username', 'email', 'password']),
+      })
+        .then(() => {
           this.errors = {}
-          console.log('register:', res)
           // 保存用户的登录状态
           this.$router.push('/')
         })

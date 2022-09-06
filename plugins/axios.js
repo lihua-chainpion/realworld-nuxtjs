@@ -1,11 +1,8 @@
-import axios from 'axios'
-
-export const request = axios.create({
-  baseURL: 'https://api.realworld.io',
-  timeout: 10000,
-})
-
-export default ({ store }) => {
+export default ({ $axios, store }, inject) => {
+  const request = $axios.create({
+    baseURL: 'https://api.realworld.io',
+    timeout: 10000,
+  })
   // Add a request interceptor
   request.interceptors.request.use(
     function (config) {
@@ -29,16 +26,15 @@ export default ({ store }) => {
     function (response) {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
-      return response.data
+      return response ? response.data : response
     },
     function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
-      const errData =
-        error.response && error.response.data
-          ? error.response.data
-          : error.response
+      let errData = error.response
+      if (errData.data) errData = errData.data
       return Promise.reject(errData)
     }
   )
+  inject('request', request)
 }

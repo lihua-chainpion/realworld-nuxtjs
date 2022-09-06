@@ -29,15 +29,15 @@
 </template>
 
 <script>
-import { getArticle } from '@/api/article'
 import MarkdownIt from 'markdown-it'
+import { getArticle } from '@/api/article'
 
 export default {
   name: 'ArticlePage',
-  async asyncData({ store, params }) {
+  async asyncData({ $request, params }) {
     let data = { article: {} }
     try {
-      data = await getArticle(params.slug)
+      data = await getArticle($request, params.slug)
       const { article } = data
       const md = new MarkdownIt()
       article.body = md.render(article.body)
@@ -51,7 +51,7 @@ export default {
   },
   head() {
     return {
-      title: this.article.title,
+      title: `${this.article.title} - RealWorld`,
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {

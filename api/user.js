@@ -1,9 +1,7 @@
-import { request } from '@/plugins/request'
-
-export const login = (data) => {
+export const login = (request, data) => {
   return request.post('/api/users/login', data)
 }
 
-export const register = (data) => {
+export const register = (request, data) => {
   return request.post('/api/users', data)
 }

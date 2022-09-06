@@ -1,3 +1,3 @@
-import { request } from '@/plugins/request'
-
-export const getTags = () => request.get('/api/tags')
+export const getTags = (request) => {
+  return request.get('/api/tags')
+}
