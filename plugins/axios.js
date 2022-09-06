@@ -1,5 +1,7 @@
-export default ({ $axios, store }, inject) => {
-  const request = $axios.create({
+import axios from 'axios'
+
+export default ({ store }, inject) => {
+  const request = axios.create({
     baseURL: 'https://api.realworld.io',
     timeout: 10000,
   })
@@ -36,5 +38,5 @@ export default ({ $axios, store }, inject) => {
       return Promise.reject(errData)
     }
   )
-  inject('request', request)
+  inject('axios', request)
 }

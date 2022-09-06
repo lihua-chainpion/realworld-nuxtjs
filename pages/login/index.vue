@@ -57,7 +57,7 @@ export default {
   mixins: [authMixin],
   methods: {
     onSubmit() {
-      login(this.$request, { user: pick(this, ['email', 'password']) })
+      login(this.$axios, { user: pick(this, ['email', 'password']) })
         .then((res) => {
           this.errors = {}
           // 保存用户的登录状态

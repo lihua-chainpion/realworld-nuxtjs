@@ -1,7 +1,7 @@
-export const login = (request, data) => {
-  return request.post('/api/users/login', data)
+export const login = (axios, data) => {
+  return axios.post('/api/users/login', data)
 }
 
-export const register = (request, data) => {
-  return request.post('/api/users', data)
+export const register = (axios, data) => {
+  return axios.post('/api/users', data)
 }

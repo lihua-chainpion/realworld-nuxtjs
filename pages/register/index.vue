@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      register(this.$request, {
+      register(this.$axios, {
         user: pick(this, ['username', 'email', 'password']),
       })
         .then(() => {

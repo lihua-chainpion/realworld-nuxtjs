@@ -147,7 +147,7 @@ import { getTags } from '@/api/tag'
 
 export default {
   name: 'HomePage',
-  async asyncData({ $request, query, store }) {
+  async asyncData({ $axios, query, store }) {
     const page = parseInt(query.page || 1)
     const limit = 20
     const { tag, tab } = query
@@ -157,12 +157,12 @@ export default {
     let tagData = { tags: [] }
     try {
       const [_articleData, _tagData] = await Promise.all([
-        loadArticles($request, {
+        loadArticles($axios, {
           tag,
           limit,
           offset: (page - 1) * limit,
         }),
-        getTags($request),
+        getTags($axios),
       ])
       if (_articleData) {
         _articleData.articles.forEach(
@@ -200,12 +200,12 @@ export default {
         article.favoriteDisabled = true
         if (article.favorited) {
           // 取消点赞
-          await deleteFavorite(this.$request, article.slug)
+          await deleteFavorite(this.$axios, article.slug)
           article.favorited = false
           article.favoritesCount--
         } else {
           // 添加点赞
-          await addFavorite(this.$request, article.slug)
+          await addFavorite(this.$axios, article.slug)
           article.favorited = true
           article.favoritesCount++
         }

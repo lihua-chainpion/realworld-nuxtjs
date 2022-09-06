@@ -1,3 +1,3 @@
-export const getTags = (request) => {
-  return request.get('/api/tags')
+export const getTags = (axios) => {
+  return axios.get('/api/tags')
 }

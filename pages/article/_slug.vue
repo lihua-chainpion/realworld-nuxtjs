@@ -34,10 +34,10 @@ import { getArticle } from '@/api/article'
 
 export default {
   name: 'ArticlePage',
-  async asyncData({ $request, params }) {
+  async asyncData({ $axios, params }) {
     let data = { article: {} }
     try {
-      data = await getArticle($request, params.slug)
+      data = await getArticle($axios, params.slug)
       const { article } = data
       const md = new MarkdownIt()
       article.body = md.render(article.body)

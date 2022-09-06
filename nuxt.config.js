@@ -3,7 +3,6 @@ export default {
     linkActiveClass: 'active',
     extendRoutes(routes, resolve) {},
   },
-  modules: ['@nuxtjs/axios'],
   plugins: ['~/plugins/axios.js', '~/plugins/dayjs.js'],
   components: true,
   head: {
